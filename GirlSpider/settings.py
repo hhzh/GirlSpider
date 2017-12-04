@@ -43,7 +43,8 @@ DEFAULT_REQUEST_HEADERS = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept-Language': 'en',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
-    'Referer': 'http://www.mmjpg.com/'
+    # 'Referer': 'http://www.mmjpg.com/'
+    'Referer': 'http://www.mm131.com/'
 }
 
 # Enable or disable spider middlewares
@@ -73,7 +74,8 @@ ITEM_PIPELINES = {
     # 'GirlSpider.middlewares.GirlspiderSpiderMiddleware': 5,
     # 'scrapy.pipelines.images.ImagesPipeline': 10,
     'GirlSpider.pipelines.MMJPGImagePipeline': 10,
-    'GirlSpider.pipelines.GirlspiderPipeline': 300,
+    # 'GirlSpider.pipelines.GirlspiderPipeline': 300,
+    'GirlSpider.pipelines.MM131SpiderPipeline': 300,
 }
 
 IMAGES_URLS_FIELD = 'img_url'

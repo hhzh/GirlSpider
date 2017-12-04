@@ -25,12 +25,14 @@ class MmjpgSpider(scrapy.Spider):
         item = MMJPGSpiderItem()
         title = response.meta.get('title', '')
         img_url = response.xpath('//div[@id="content"]/a/img/@src').extract_first('')
+        tags = response.xpath('//div[@class="other"]/div[@class="tags"]/a/text()').extract()
         item['title'] = title
         item['img_url'] = [img_url]
+        item['tags'] = ','.join(tags)
 
         next_detail = response.xpath('//div[@id="page"]/a[@class="ch next"]/@href').extract_first('')
-        next_title = response.xpath('//div[@id="page"]/a[@class="ch next"]/text()').extract_first('')
-        if next_detail and '页' in next_title:
+        # next_title = response.xpath('//div[@id="page"]/a[@class="ch next"]/text()').extract_first('')
+        if next_detail:
             yield Request(url=parse.urljoin(response.url, next_detail), meta={'title': title},
                           callback=self.parse_detail)
         yield item

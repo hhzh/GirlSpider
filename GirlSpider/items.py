@@ -11,7 +11,16 @@ import scrapy
 class GirlspiderItem(scrapy.Item):
     pass
 
+
 class MMJPGSpiderItem(scrapy.Item):
     title = scrapy.Field()
     img_url = scrapy.Field()
-    path=scrapy.Field()
+    path = scrapy.Field()
+    tags = scrapy.Field()
+
+
+class MM131SpiderItem(scrapy.Item):
+    title = scrapy.Field()
+    tag = scrapy.Field()
+    img_url = scrapy.Field()
+    path = scrapy.Field()
