@@ -8,21 +8,22 @@ from GirlSpider.items import MM131SpiderItem
 class Mm131Spider(scrapy.Spider):
     name = "mm131"
     allowed_domains = ["mm131.com"]
-    start_urls = ['http://mm131.com/xinggan/', 'http://mm131.com/qingchun/', 'http://mm131.com/xiaohua/',
-                  'http://mm131.com/chemo/', 'http://mm131.com/qipao/', 'http://mm131.com/mingxing/']
+    start_urls = ['http://www.mm131.com/mingxing/']
 
     def parse(self, response):
         tag = response.xpath('//div[@class="main"]/dl/dt[@class="public-title"]/a[2]/text()').extract_first('')
-        title = response.xpath('//div[@class="main"]/dl/dd/a/text()').extract_first('')
-        img_packages = response.xpath('//div[@class="main"]/dl/dd/a/@href').extract()
-        for img_package in img_packages:
+        img_nodes = response.xpath('//div[@class="main"]/dl/dd[not(@*)]/a')
+        for img_node in img_nodes:
+            img_package = img_node.xpath('@href').extract_first('')
+            title = img_node.xpath('img/@alt').extract_first('')
             yield Request(url=parse.urljoin(response.url, img_package), meta={'title': title, 'tag': tag},
                           callback=self.parse_detail)
-        next_node = response.xpath('//div[@class="main"]/dl/dd[@class="package"]/a[@class="page-en"]')
-        next_title = next_node.xpath('text').extract_first('')
-        if '下一页' in next_title:
-            next_url = next_node.xpath('@href').extract_first('')
-            yield Request(url=parse.urljoin(response.url, next_url), callback=self.parse)
+        next_nodes = response.xpath('//div[@class="main"]/dl/dd[@class="page"]/a[@class="page-en"]')
+        for next_node in next_nodes:
+            next_title = next_node.xpath('text()').extract_first('')
+            if '下一页' in next_title:
+                next_url = next_node.xpath('@href').extract_first('')
+                yield Request(url=parse.urljoin(response.url, next_url), callback=self.parse)
 
     def parse_detail(self, response):
         item = MM131SpiderItem()

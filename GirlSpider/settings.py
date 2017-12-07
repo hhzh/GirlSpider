@@ -81,7 +81,7 @@ ITEM_PIPELINES = {
 IMAGES_URLS_FIELD = 'img_url'
 project_dir = os.path.abspath(os.path.dirname(__file__))
 IMAGES_STORE = os.path.join(project_dir, 'images')
-DEPTH_LIMIT = 2
+# DEPTH_LIMIT = 2
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
