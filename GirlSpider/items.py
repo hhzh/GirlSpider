@@ -24,3 +24,9 @@ class MM131SpiderItem(scrapy.Item):
     tag = scrapy.Field()
     img_url = scrapy.Field()
     path = scrapy.Field()
+
+class ZbjuranSpiderItem(scrapy.Item):
+    title = scrapy.Field()
+    tag = scrapy.Field()
+    img_url = scrapy.Field()
+    path = scrapy.Field()
