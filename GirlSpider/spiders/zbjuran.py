@@ -27,7 +27,9 @@ class ZbjuranSpider(scrapy.Spider):
         item = ZbjuranSpiderItem()
         title = response.meta.get('title', '')
         tag = 'xiaohua'
-        img_url = response.xpath('//div[@class="main"]/div[@class="arc"]/div[@class="box"]/center/div[@class="picbox"]/img/@src').extract_first('')
+        img_url = response.xpath(
+            '//div[@class="main"]/div[@class="arc"]/div[@class="box"]/center/div[@class="picbox"]/img/@src').extract_first(
+            '')
         item['title'] = title
         item['tag'] = tag
         item['img_url'] = [parse.urljoin('http://img.zbjuran.com', img_url)]
