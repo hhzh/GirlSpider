@@ -22,7 +22,6 @@ class MMJPGImagePipeline(ImagesPipeline):
             for ok, value in results:
                 image_file_path = value['path']
             item['path'] = image_file_path[5:]
-            
         return item
 
 
